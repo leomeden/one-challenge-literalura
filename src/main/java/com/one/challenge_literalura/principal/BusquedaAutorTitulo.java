@@ -6,6 +6,7 @@ import com.one.challenge_literalura.service.ConsumoApi;
 import com.one.challenge_literalura.service.ConvierteDatos;
 
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class BusquedaAutorTitulo {
 
@@ -48,11 +49,16 @@ public class BusquedaAutorTitulo {
 
             }
 
+        }else{
+            if(datos.cantidad() < 1) {
+                System.out.println("No se encontró ningún Autor o Titulo - Intente con otra busqueda!");
+            } else {
+                datosBusquedaTotal.setLibros(datos.resultados());
+            }
+
         }
 
-        if(datos.cantidad() == 0) {
-            System.out.println("No se encontró ningún Autor o Titulo - Intente con otra busqueda!");
-        }
+
 
 
         //System.out.println(datosBusquedaTotal.getLibros());
@@ -79,6 +85,10 @@ public class BusquedaAutorTitulo {
                 if(datosBusquedaTotal.getLibros().size() > 0){
                     System.out.println("busqueda total ------");
                     System.out.println("Cantidad de libros: " + datosBusquedaTotal.getLibros().size());
+                    datosBusquedaTotal.getLibros().forEach(l -> {
+                                String autores = l.autor().stream().map(a -> a.nombre()).collect(Collectors.joining(" / "));
+                                System.out.println(l.titulo() + " - " + autores);
+                            });
                 }
             }
 
