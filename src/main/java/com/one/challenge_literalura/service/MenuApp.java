@@ -14,7 +14,7 @@ public class MenuApp {
 
     private String menuPrincipal= """
             
-            Elija su opción:
+        Elija su opción:
             
             1- Buscar Libro por Titulo o Autor
             2- Listar Libros registrados
@@ -22,7 +22,6 @@ public class MenuApp {
             4- Listar Autores vivos según año
             5- Listar Libros por idioma
             0- Salir de la aplicación
-        
         """;
 
     public void mostrarSaludoInicial(){

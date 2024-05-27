@@ -10,6 +10,7 @@ public class ChallengeLiteraluraApplication implements CommandLineRunner{
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChallengeLiteraluraApplication.class, args);
+
 	}
 
 	@Override

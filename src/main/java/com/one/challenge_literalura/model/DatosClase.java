@@ -14,8 +14,6 @@ public class DatosClase {
         this.libros = libros;
     }
 
-
-
     public void agregarLibros(List<DatosLibros> listaLibros){
 
             this.libros.addAll(listaLibros);
