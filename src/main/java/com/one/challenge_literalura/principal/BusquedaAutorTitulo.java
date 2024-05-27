@@ -114,6 +114,7 @@ public class BusquedaAutorTitulo {
                                     System.out.println("Se canceló la opción de guardar libro");
                                 } else {
                                     System.out.println("Se eligio guardar el libro: " + opcion);
+                                    System.out.println(datosBusquedaTotal.getLibros().get(opcion-1));
                                 }
                             }
 

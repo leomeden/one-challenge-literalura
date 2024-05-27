@@ -22,10 +22,15 @@ public class Principal {
             menuApp.mostrarMenuPrincipal();
             try{
                 opcion = teclado.nextInt();
-                if(opcion > 5) {
+                if(opcion > 5 || opcion < 0) {
                     throw new OpcionIncorrectaMenu("Elija una opción correcta!!");
+                } else {
+                    menuApp.seleccionDeOpcion(opcion);
+                    if (opcion == 0){
+                        salir = true;
+                    }
                 }
-                menuApp.seleccionDeOpcion(opcion);
+
             } catch(InputMismatchException e){
                 System.out.println("\nDebe ingresar un valor valido!!\n");
                 teclado.nextLine();
