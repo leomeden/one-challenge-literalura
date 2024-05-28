@@ -2,12 +2,13 @@ package com.one.challenge_literalura.principal;
 
 import com.one.challenge_literalura.excepciones.OpcionIncorrectaMenu;
 import com.one.challenge_literalura.model.Datos;
-import com.one.challenge_literalura.model.DatosClase;
+import com.one.challenge_literalura.model.DatosLibros;
 import com.one.challenge_literalura.service.ConsumoApi;
 import com.one.challenge_literalura.service.ConvierteDatos;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -17,11 +18,12 @@ public class BusquedaAutorTitulo {
     private static String URL_BASE = "https://gutendex.com/books/?search=";
 
 
-    public static void buscar(){
+    public void buscar(){
 
         ConsumoApi consumoApi = new ConsumoApi();
         ConvierteDatos conversor = new ConvierteDatos();
-        DatosClase datosBusquedaTotal = new DatosClase();
+        //DatosClase datosBusquedaTotal = new DatosClase();
+        List<DatosLibros> datosBusquedaTotal = new ArrayList<>();
         boolean proxima = true;
         boolean salir = false;
         int opcion = 0;
@@ -51,7 +53,7 @@ public class BusquedaAutorTitulo {
                     //System.out.println("elegi cancelar");
                 }
                 if(entrada.toLowerCase().equals("s")){
-                    datosBusquedaTotal.setLibros(datos.resultados());
+                    datosBusquedaTotal.addAll(datos.resultados());
                     //System.out.println("elegi seguir");
                 }
 
@@ -61,7 +63,7 @@ public class BusquedaAutorTitulo {
             if(datos.cantidad() < 1) {
                 System.out.println("No se encontró ningún Autor o Titulo - Intente con otra busqueda!");
             } else {
-                datosBusquedaTotal.setLibros(datos.resultados());
+                datosBusquedaTotal.addAll(datos.resultados());
             }
 
         }
@@ -85,18 +87,18 @@ public class BusquedaAutorTitulo {
                 proxima = false;
             }
 
-            datosBusquedaTotal.agregarLibros(datos.resultados());
+            datosBusquedaTotal.addAll(datos.resultados());
 
 
         }
 
         try{
             if(datos.cantidad() > 0){
-                if(datosBusquedaTotal.getLibros().size() > 0){
+                if(datosBusquedaTotal.size() > 0){
                     System.out.println("\nbusqueda total ------");
-                    System.out.println("Cantidad de libros: " + datosBusquedaTotal.getLibros().size());
+                    System.out.println("Cantidad de libros: " + datosBusquedaTotal.size());
                     AtomicInteger num = new AtomicInteger(1);
-                    datosBusquedaTotal.getLibros().forEach(l -> {
+                    datosBusquedaTotal.forEach(l -> {
                                 String autores = l.autor().stream().map(a -> a.nombre()).collect(Collectors.joining(" / "));
                                 System.out.println((num.getAndIncrement()) + ") " + l.titulo() + " - " + autores);
                             });
@@ -106,7 +108,7 @@ public class BusquedaAutorTitulo {
                         System.out.print("\nIngrese el número del libro que desea guardar (0 para salir): ");
                         try{
                             opcion = teclado.nextInt();
-                            if(opcion > datosBusquedaTotal.getLibros().size() || opcion < 0){
+                            if(opcion > datosBusquedaTotal.size() || opcion < 0){
                                 throw new OpcionIncorrectaMenu();
                             }else {
                                 salir = true;
@@ -114,7 +116,7 @@ public class BusquedaAutorTitulo {
                                     System.out.println("Se canceló la opción de guardar libro");
                                 } else {
                                     System.out.println("Se eligio guardar el libro: " + opcion);
-                                    System.out.println(datosBusquedaTotal.getLibros().get(opcion-1));
+                                    System.out.println(datosBusquedaTotal.get(opcion-1));
                                 }
                             }
 

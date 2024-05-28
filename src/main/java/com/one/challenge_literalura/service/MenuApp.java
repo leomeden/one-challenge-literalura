@@ -4,6 +4,8 @@ import com.one.challenge_literalura.principal.BusquedaAutorTitulo;
 
 public class MenuApp {
 
+    public BusquedaAutorTitulo busqueda = new BusquedaAutorTitulo();
+
     private String saludoInicial = """
             
             ######################################################################
@@ -36,7 +38,7 @@ public class MenuApp {
         switch (opcion) {
             case 1:
                 System.out.println("Ingrese el nombre de Autor o Titulo a buscar: ");
-                BusquedaAutorTitulo.buscar();
+                busqueda.buscar();
                 break;
 
             case 2:
