@@ -4,7 +4,7 @@ import com.one.challenge_literalura.principal.BusquedaAutorTitulo;
 
 public class MenuApp {
 
-    public BusquedaAutorTitulo busqueda = new BusquedaAutorTitulo();
+
 
     private String saludoInicial = """
             
@@ -34,36 +34,7 @@ public class MenuApp {
         System.out.println(menuPrincipal);
     }
 
-    public void seleccionDeOpcion(int opcion){
-        switch (opcion) {
-            case 1:
-                System.out.println("Ingrese el nombre de Autor o Titulo a buscar: ");
-                busqueda.buscar();
-                break;
 
-            case 2:
-                System.out.println("Listado de Libros registrados: ");
-                break;
-
-            case 3:
-                System.out.println("Listado de Autores registrados: ");
-                break;
-
-            case 4:
-                System.out.println("Autores vivos según año: ");
-                break;
-            case 5:
-                System.out.println("Libros por idioma: ");
-                break;
-
-            case 0:
-                System.out.println("Listado de libros registrados: ");
-                break;
-
-            default:
-                break;
-        }
-    }
 
 
 }

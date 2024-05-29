@@ -18,7 +18,7 @@ public class BusquedaAutorTitulo {
     private static String URL_BASE = "https://gutendex.com/books/?search=";
 
 
-    public void buscar(){
+    public DatosLibros buscar(){
 
         ConsumoApi consumoApi = new ConsumoApi();
         ConvierteDatos conversor = new ConvierteDatos();
@@ -114,9 +114,11 @@ public class BusquedaAutorTitulo {
                                 salir = true;
                                 if(opcion == 0){
                                     System.out.println("Se canceló la opción de guardar libro");
+                                    return null;
                                 } else {
                                     System.out.println("Se eligio guardar el libro: " + opcion);
                                     System.out.println(datosBusquedaTotal.get(opcion-1));
+                                    return datosBusquedaTotal.get(opcion-1);
                                 }
                             }
 
@@ -130,9 +132,6 @@ public class BusquedaAutorTitulo {
                         }
                     }
 
-
-
-
                 }
             }
 
@@ -140,7 +139,7 @@ public class BusquedaAutorTitulo {
             System.out.println("Se cancelo la busqueda!");
         }
 
-
+        return null;
     }
 
 
