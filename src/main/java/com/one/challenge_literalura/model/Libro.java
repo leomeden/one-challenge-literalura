@@ -17,9 +17,10 @@ public class Libro {
     private String titulo;
     private Double descargas;
     @ManyToMany(/*targetEntity = Autor.class,*/ cascade = {
-            /*CascadeType.PERSIST,
-            CascadeType.MERGE*/
-            CascadeType.ALL
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+            //CascadeType.REFRESH
+            //CascadeType.ALL
 
     })
     @JoinTable(

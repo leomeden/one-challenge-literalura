@@ -4,6 +4,7 @@ import com.one.challenge_literalura.excepciones.OpcionIncorrectaMenu;
 
 import com.one.challenge_literalura.model.Autor;
 import com.one.challenge_literalura.model.DatosLibros;
+import com.one.challenge_literalura.model.Idioma;
 import com.one.challenge_literalura.model.Libro;
 import com.one.challenge_literalura.repository.AutorRepository;
 import com.one.challenge_literalura.repository.IdiomaRepository;
@@ -22,14 +23,14 @@ public class Principal {
     int opcion;
     private LibroRepository libroRepositorio;
     private AutorRepository autorRepositorio;
-    private IdiomaRepository idiomaRepository;
+    private IdiomaRepository idiomaRepositorio;
     public BusquedaAutorTitulo busqueda = new BusquedaAutorTitulo();
     private DatosLibros libroBuscado;
 
     public Principal(LibroRepository libroRepository, AutorRepository autorRepository, IdiomaRepository idiomaRepository) {
         this.libroRepositorio = libroRepository;
         this.autorRepositorio = autorRepository;
-        this.idiomaRepository = idiomaRepository;
+        this.idiomaRepositorio = idiomaRepository;
     }
 
     public void arrancar() {
@@ -103,6 +104,11 @@ public class Principal {
                                 .collect(Collectors.toSet());
         autores.forEach(a-> libro.addAutor(a));
 
+        Set<Idioma> idiomas = libroBuscado.idiomas().stream()
+                .map(i -> new Idioma(i))
+                .collect(Collectors.toSet());
+        idiomas.forEach(i-> libro.addIdioma(i));
+
 
         try{
             libroRepositorio.save(libro);
@@ -127,7 +133,24 @@ public class Principal {
                     }
             );
 
-            System.out.println(libro);
+            libro.getIdiomas().forEach(a -> {
+                        Set<Idioma> idiomasDB = idiomaRepositorio.findByIdioma(a.getIdioma());
+                        idiomasDB.forEach(b-> {
+                            System.out.println("id del elemento: " + b.getId());
+                            System.out.println(a.getIdioma());
+                            System.out.println(b.getIdioma());
+                            if(a.getIdioma().equals(b.getIdioma())){
+                                a.setId(b.getId());
+                                System.out.println("Alcoyana alcoyana");
+                                System.out.println(a.getId());
+                                //libroRepositorio.save(libro);
+                            }
+                        });
+                    }
+            );
+
+            //System.out.println(libro);
+
             libroRepositorio.save(libro);
 
         }
