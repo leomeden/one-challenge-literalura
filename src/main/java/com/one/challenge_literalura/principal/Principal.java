@@ -2,15 +2,17 @@ package com.one.challenge_literalura.principal;
 
 import com.one.challenge_literalura.excepciones.OpcionIncorrectaMenu;
 
+import com.one.challenge_literalura.model.Autor;
 import com.one.challenge_literalura.model.DatosLibros;
 import com.one.challenge_literalura.model.Libro;
+import com.one.challenge_literalura.repository.AutorRepository;
+import com.one.challenge_literalura.repository.IdiomaRepository;
 import com.one.challenge_literalura.repository.LibroRepository;
 import com.one.challenge_literalura.service.MenuApp;
+import org.springframework.dao.DataIntegrityViolationException;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -18,12 +20,16 @@ public class Principal {
     private Scanner teclado = new Scanner(System.in);
     private boolean salir = false;
     int opcion;
-    private LibroRepository repositorio;
+    private LibroRepository libroRepositorio;
+    private AutorRepository autorRepositorio;
+    private IdiomaRepository idiomaRepository;
     public BusquedaAutorTitulo busqueda = new BusquedaAutorTitulo();
     private DatosLibros libroBuscado;
 
-    public Principal(LibroRepository repository) {
-        this.repositorio = repository;
+    public Principal(LibroRepository libroRepository, AutorRepository autorRepository, IdiomaRepository idiomaRepository) {
+        this.libroRepositorio = libroRepository;
+        this.autorRepositorio = autorRepository;
+        this.idiomaRepository = idiomaRepository;
     }
 
     public void arrancar() {
@@ -64,7 +70,7 @@ public class Principal {
 
             case 2:
                 System.out.println("Listado de Libros registrados: ");
-                List<Libro> libroList = repositorio.findAll();
+                List<Libro> libroList = libroRepositorio.findAll();
                 System.out.println(libroList);
                 break;
 
@@ -92,8 +98,47 @@ public class Principal {
         libroBuscado = busqueda.buscar();
         System.out.println("Retornó el libro: " + libroBuscado);
         Libro libro = new Libro(libroBuscado);
-        repositorio.save(libro);
+        Set<Autor> autores = libroBuscado.autor().stream()
+                        .map(a -> new Autor(a))
+                                .collect(Collectors.toSet());
+        autores.forEach(a-> libro.addAutor(a));
+
+
+        try{
+            libroRepositorio.save(libro);
+            //preventDuplicates(libro);
+
+        }catch(DataIntegrityViolationException e){
+            System.out.println("No se pudo guardar\n");
+            System.out.println(e.getMessage());
+            libro.getAutores().forEach(a -> {
+                        Set<Autor> autoresDB = autorRepositorio.findByNombre(a.getNombre());
+                        autoresDB.forEach(b-> {
+                            System.out.println("id del elemento: " + b.getId());
+                            System.out.println(a.getNombre());
+                            System.out.println(b.getNombre());
+                            if(a.getNombre().equals(b.getNombre())){
+                                a.setId(b.getId());
+                                System.out.println("Alcoyana alcoyana");
+                                System.out.println(a.getId());
+                                //libroRepositorio.save(libro);
+                            }
+                        });
+                    }
+            );
+
+            System.out.println(libro);
+            libroRepositorio.save(libro);
+
+        }
+
+
+
     }
+
+    //private void preventDuplicates(Libro libro){
+
+
 
 
 }
