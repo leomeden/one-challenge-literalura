@@ -9,4 +9,5 @@ import java.util.Set;
 public interface IdiomaRepository extends JpaRepository<Idioma, Long> {
 
     Set<Idioma> findByIdioma(String idioma);
+    Idioma findFirstByIdioma(String idioma);
 }

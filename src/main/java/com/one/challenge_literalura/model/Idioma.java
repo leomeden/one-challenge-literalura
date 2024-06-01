@@ -2,10 +2,7 @@ package com.one.challenge_literalura.model;
 
 import jakarta.persistence.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "idiomas")
@@ -27,13 +24,28 @@ public class Idioma {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if(!(o instanceof Idioma)) return false;
-        return id != null && id.equals(((Idioma) o).getId());
+        /*if(!(o instanceof Idioma)) return false;
+        return id != null && id.equals(((Idioma) o).getId());*/
+        if ( o == null || getClass() != o.getClass() ) {
+            return false;
+        }
+        Idioma idioma = (Idioma) o;
+        return Objects.equals( id, idioma.id );
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+
+        //return getClass().hashCode();
+        return Objects.hash( id );
+    }
+
+    @Override
+    public String toString() {
+        return "Idioma{" +
+                "id=" + id +
+                ", idioma='" + idioma + '\'' +
+                '}';
     }
 
     public Long getId() {

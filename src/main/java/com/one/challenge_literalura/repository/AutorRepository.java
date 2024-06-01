@@ -7,8 +7,6 @@ import java.util.Set;
 
 public interface AutorRepository extends JpaRepository<Autor, Long> {
 
-    Set<Autor> findByNombre(String nombre);
-    //Autor findByNombre(String nombre);
+    Autor findFirstByNombre(String nombre);
 
-    Autor getIdBynombre(String nombre);
 }

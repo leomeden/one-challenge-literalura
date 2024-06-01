@@ -72,11 +72,13 @@ public class Principal {
             case 2:
                 System.out.println("Listado de Libros registrados: ");
                 List<Libro> libroList = libroRepositorio.findAll();
-                System.out.println(libroList);
+                imprimirLibros(libroList);
                 break;
 
             case 3:
                 System.out.println("Listado de Autores registrados: ");
+                Idioma idioma = new Idioma("es");
+                System.out.println(traducirLenguaje(idioma));
                 break;
 
             case 4:
@@ -87,7 +89,7 @@ public class Principal {
                 break;
 
             case 0:
-                System.out.println("Listado de libros registrados: ");
+                System.out.println("Chau chau: ");
                 break;
 
             default:
@@ -97,72 +99,66 @@ public class Principal {
 
     private void opcionBuscar(){
         libroBuscado = busqueda.buscar();
-        System.out.println("Retornó el libro: " + libroBuscado);
-        Libro libro = new Libro(libroBuscado);
-        Set<Autor> autores = libroBuscado.autor().stream()
-                        .map(a -> new Autor(a))
-                                .collect(Collectors.toSet());
-        autores.forEach(a-> libro.addAutor(a));
-
-        Set<Idioma> idiomas = libroBuscado.idiomas().stream()
-                .map(i -> new Idioma(i))
-                .collect(Collectors.toSet());
-        idiomas.forEach(i-> libro.addIdioma(i));
-
+        //System.out.println("Retornó el libro: " + libroBuscado);
+        Libro libro;
 
         try{
-            libroRepositorio.save(libro);
-            //preventDuplicates(libro);
+            if(libroBuscado != null) {
+                libro = new Libro(libroBuscado);
+                //System.out.println("Libro sin autor ni idioma para guardar:" + libro);
+                libroRepositorio.save(libro);
+                libroBuscado.autor().forEach(a -> {
+                    Autor autorYaGuardado = autorRepositorio.findFirstByNombre(a.nombre());
+                    if(autorYaGuardado != null) {
+                        libro.addAutor(autorYaGuardado);
+                    } else{
+                        libro.addAutor(new Autor(a));
+                    }
 
-        }catch(DataIntegrityViolationException e){
+                });
+                libroBuscado.idiomas().forEach(i -> {
+                    Idioma idiomaYaGuardado = idiomaRepositorio.findFirstByIdioma(i);
+                    if(idiomaYaGuardado != null) {
+                        libro.addIdioma(idiomaYaGuardado);
+                    }else {
+                        libro.addIdioma(new Idioma(i));
+                    }
+                    libro.addIdioma(idiomaRepositorio.findFirstByIdioma(i));
+                });
+                //System.out.println("Libro  con autor e idioma para guardar:" + libro);
+                libroRepositorio.save(libro);
+                System.out.println("Se guardó el libro de forma exitosa!!");
+            }
+        }catch(Exception e){
             System.out.println("No se pudo guardar\n");
             System.out.println(e.getMessage());
-            libro.getAutores().forEach(a -> {
-                        Set<Autor> autoresDB = autorRepositorio.findByNombre(a.getNombre());
-                        autoresDB.forEach(b-> {
-                            System.out.println("id del elemento: " + b.getId());
-                            System.out.println(a.getNombre());
-                            System.out.println(b.getNombre());
-                            if(a.getNombre().equals(b.getNombre())){
-                                a.setId(b.getId());
-                                System.out.println("Alcoyana alcoyana");
-                                System.out.println(a.getId());
-                                //libroRepositorio.save(libro);
-                            }
-                        });
-                    }
-            );
-
-            libro.getIdiomas().forEach(a -> {
-                        Set<Idioma> idiomasDB = idiomaRepositorio.findByIdioma(a.getIdioma());
-                        idiomasDB.forEach(b-> {
-                            System.out.println("id del elemento: " + b.getId());
-                            System.out.println(a.getIdioma());
-                            System.out.println(b.getIdioma());
-                            if(a.getIdioma().equals(b.getIdioma())){
-                                a.setId(b.getId());
-                                System.out.println("Alcoyana alcoyana");
-                                System.out.println(a.getId());
-                                //libroRepositorio.save(libro);
-                            }
-                        });
-                    }
-            );
-
-            //System.out.println(libro);
-
-            libroRepositorio.save(libro);
-
         }
-
-
-
     }
 
-    //private void preventDuplicates(Libro libro){
+    private void imprimirLibros(List<Libro> libros){
+        libros.forEach(l-> {
+            System.out.println("\n########################################");
+            System.out.println("Titulo: " + l.getTitulo());
+            String autores = l.getAutores().stream()
+                    .map(Autor::getNombre)
+                    .collect(Collectors.joining(" / "));
+            System.out.println("Autores: " + autores);
+            System.out.println("Descargas: " + l.getDescargas());
+            String idiomas = l.getIdiomas().stream()
+                    .map(i -> traducirLenguaje(i))
+                    .collect(Collectors.joining(" / "));
+            System.out.println("Idiomas: " + idiomas);
+            System.out.println("########################################");
+        });
+    }
 
+        private String traducirLenguaje(Idioma Idioma) {
+            String nombre = Idioma.getIdioma();
 
-
+                Locale nombreIdioma = Locale.forLanguageTag(nombre);
+                String traducido = nombreIdioma.getDisplayName();
+                return traducido;
+        }
 
 }
 

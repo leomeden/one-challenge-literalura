@@ -11,7 +11,7 @@ public record DatosLibros(
         @JsonAlias("title") String titulo,
         @JsonAlias("authors") Set<DatosAutor> autor,
         @JsonAlias("languages") Set<String> idiomas,
-        @JsonAlias("download_count") Double numeroDeDescargas
+        @JsonAlias("download_count") Long numeroDeDescargas
 
 ) {
 }

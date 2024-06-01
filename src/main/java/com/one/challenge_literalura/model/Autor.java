@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -56,13 +57,19 @@ public class Autor {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if(!(o instanceof Autor)) return false;
-        return id != null && id.equals(((Autor) o).getId());
+        /*if(!(o instanceof Autor)) return false;
+        return id != null && id.equals(((Autor) o).getId());*/
+        if ( o == null || getClass() != o.getClass() ) {
+            return false;
+        }
+        Autor autor = (Autor) o;
+        return Objects.equals( id, autor.id );
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        //return getClass().hashCode();
+        return Objects.hash( id );
     }
 
     public Long getId() {

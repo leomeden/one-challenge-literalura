@@ -15,8 +15,8 @@ public class Libro {
     private Long id;
     @Column(unique = true)
     private String titulo;
-    private Double descargas;
-    @ManyToMany(/*targetEntity = Autor.class,*/ cascade = {
+    private Long descargas;
+    @ManyToMany(fetch=FetchType.EAGER,/*targetEntity = Autor.class,*/ cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
             //CascadeType.REFRESH
@@ -35,7 +35,7 @@ public class Libro {
     private Set<Autor> autores = new HashSet<Autor>();
     //private List<Autor> autores = new ArrayList<Autor>();
 
-    @ManyToMany(targetEntity = Idioma.class, cascade = {
+    @ManyToMany(fetch=FetchType.EAGER, /*targetEntity = Idioma.class,*/ cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
@@ -101,6 +101,8 @@ public class Libro {
                 ", autores=" + autores +
                 ", idiomas=" + idiomas +
                 '}';
+
+
     }
 
     public Long getId() {
@@ -119,11 +121,11 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public Double getDescargas() {
+    public Long getDescargas() {
         return descargas;
     }
 
-    public void setDescargas(Double descargas) {
+    public void setDescargas(Long descargas) {
         this.descargas = descargas;
     }
 
