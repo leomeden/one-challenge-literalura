@@ -106,38 +106,50 @@ public class Principal {
             if(libroBuscado != null) {
                 libro = new Libro(libroBuscado);
                 //System.out.println("Libro sin autor ni idioma para guardar:" + libro);
-                libroRepositorio.save(libro);
-                libroBuscado.autor().forEach(a -> {
-                    Autor autorYaGuardado = autorRepositorio.findFirstByNombre(a.nombre());
-                    if(autorYaGuardado != null) {
-                        libro.addAutor(autorYaGuardado);
-                    } else{
-                        libro.addAutor(new Autor(a));
-                    }
+                Libro libroYaGuardado = libroRepositorio.findFirstByTitulo(libro.getTitulo());
+                if (libroYaGuardado != null) {
+                    System.out.println("\nEl libro -> " + libro.getTitulo() + " ya se encuentra en nuestra base de datos!! \n");
+                    imprimirLibro(libroYaGuardado);
+                } else {
+                    libroRepositorio.save(libro);
 
-                });
-                libroBuscado.idiomas().forEach(i -> {
-                    Idioma idiomaYaGuardado = idiomaRepositorio.findFirstByIdioma(i);
-                    if(idiomaYaGuardado != null) {
-                        libro.addIdioma(idiomaYaGuardado);
-                    }else {
-                        libro.addIdioma(new Idioma(i));
-                    }
-                    libro.addIdioma(idiomaRepositorio.findFirstByIdioma(i));
-                });
-                //System.out.println("Libro  con autor e idioma para guardar:" + libro);
-                libroRepositorio.save(libro);
-                System.out.println("Se guardó el libro de forma exitosa!!");
+                    libroBuscado.autor().forEach(a -> {
+                        Autor autorYaGuardado = autorRepositorio.findFirstByNombre(a.nombre());
+                        if (autorYaGuardado != null) {
+                            libro.addAutor(autorYaGuardado);
+                        } else {
+                            libro.addAutor(new Autor(a));
+                        }
+
+                    });
+                    libroBuscado.idiomas().forEach(i -> {
+                        Idioma idiomaYaGuardado = idiomaRepositorio.findFirstByIdioma(i);
+                        if (idiomaYaGuardado != null) {
+                            libro.addIdioma(idiomaYaGuardado);
+                        } else {
+                            libro.addIdioma(new Idioma(i));
+                        }
+                        libro.addIdioma(idiomaRepositorio.findFirstByIdioma(i));
+                    });
+                    //System.out.println("Libro  con autor e idioma para guardar:" + libro);
+                    libroRepositorio.save(libro);
+                    System.out.println("\nEl siguiente Libro se guardó de forma exitosa:\n");
+                    imprimirLibro(libro);
+
+                }
             }
         }catch(Exception e){
             System.out.println("No se pudo guardar\n");
-            System.out.println(e.getMessage());
+            if(e.getMessage().contains("Detail: Ya existe la llave (titulo)")){
+                System.out.println("El libro elegido ya existe en la base de datos!!");
+            }
+            //System.out.println(e.getMessage());
         }
     }
 
     private void imprimirLibros(List<Libro> libros){
         libros.forEach(l-> {
-            System.out.println("\n########################################");
+            /*System.out.println("\n########################################");
             System.out.println("Titulo: " + l.getTitulo());
             String autores = l.getAutores().stream()
                     .map(Autor::getNombre)
@@ -148,8 +160,24 @@ public class Principal {
                     .map(i -> traducirLenguaje(i))
                     .collect(Collectors.joining(" / "));
             System.out.println("Idiomas: " + idiomas);
-            System.out.println("########################################");
+            System.out.println("########################################");*/
+            imprimirLibro(l);
         });
+    }
+
+    private void imprimirLibro(Libro libro) {
+        System.out.println("\n########################################");
+        System.out.println("Titulo: " + libro.getTitulo());
+        String autores = libro.getAutores().stream()
+                .map(Autor::getNombre)
+                .collect(Collectors.joining(" / "));
+        System.out.println("Autores: " + autores);
+        System.out.println("Descargas: " + libro.getDescargas());
+        String idiomas = libro.getIdiomas().stream()
+                .map(i -> traducirLenguaje(i))
+                .collect(Collectors.joining(" / "));
+        System.out.println("Idiomas: " + idiomas);
+        System.out.println("########################################");
     }
 
         private String traducirLenguaje(Idioma Idioma) {

@@ -117,7 +117,7 @@ public class BusquedaAutorTitulo {
                                     return null;
                                 } else {
                                     System.out.println("Se eligio guardar el libro: " + opcion);
-                                    System.out.println(datosBusquedaTotal.get(opcion-1));
+                                    //System.out.println(datosBusquedaTotal.get(opcion-1));
                                     return datosBusquedaTotal.get(opcion-1);
                                 }
                             }
