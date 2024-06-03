@@ -1,7 +1,7 @@
 # Oracle One G6 - Challenge Literalura
 <br>
 
-![Image Alt Literalura](/images/literalura.png "Literalura")
+![Image Alt Literalura](images/literalura.png "Literalura")
 
 <br><br><br>
 
