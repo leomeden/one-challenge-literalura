@@ -19,8 +19,8 @@ public class Autor {
     private String nombre;
     private int fechaDeNacimiento;
     private int fechaDeMuerte;
-    /*@ManyToMany(mappedBy = "autores", cascade = CascadeType.ALL)
-    private Set<Libro> libros = new HashSet<Libro>();*/
+    @ManyToMany(mappedBy = "autores", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Libro> libros = new HashSet<Libro>();
 
     public Autor(){};
 
@@ -103,9 +103,12 @@ public class Autor {
     public void setFechaDeMuerte(int fechaDeMuerte) {
         this.fechaDeMuerte = fechaDeMuerte;
     }
-/*
+
     public Set<Libro> getLibros() {
         return libros;
     }
-*/
+
+    public void setLibros(Set<Libro> libros) {
+        this.libros = libros;
+    }
 }

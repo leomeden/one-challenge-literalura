@@ -12,10 +12,10 @@ public class Idioma {
     private Long id;
     @Column(unique = true)
     private String idioma;
-/*
-    @ManyToMany(mappedBy = "idiomas", cascade = CascadeType.ALL)
-    private Set<Libro> libros = new HashSet<Libro>();
-*/
+
+    /*@ManyToMany(mappedBy = "idiomas", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Libro> libros = new HashSet<Libro>();*/
+
     public Idioma() {}
 
     public Idioma(String idioma) {
@@ -63,4 +63,14 @@ public class Idioma {
     public void setIdioma(String idioma) {
         this.idioma = idioma;
     }
+/*
+    public Set<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Set<Libro> libros) {
+        this.libros = libros;
+    }
+
+ */
 }

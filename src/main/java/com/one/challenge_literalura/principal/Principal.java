@@ -77,15 +77,17 @@ public class Principal {
 
             case 3:
                 System.out.println("Listado de Autores registrados: ");
-                Idioma idioma = new Idioma("es");
-                System.out.println(traducirLenguaje(idioma));
+                List<Autor> autorList = autorRepositorio.findAll();
+                imprimirAutores(autorList);
                 break;
 
             case 4:
                 System.out.println("Autores vivos según año: ");
+                buscarAutoresPorAnio();
                 break;
             case 5:
-                System.out.println("Libros por idioma: ");
+
+                buscarLibrosPorIdioma();
                 break;
 
             case 0:
@@ -149,18 +151,6 @@ public class Principal {
 
     private void imprimirLibros(List<Libro> libros){
         libros.forEach(l-> {
-            /*System.out.println("\n########################################");
-            System.out.println("Titulo: " + l.getTitulo());
-            String autores = l.getAutores().stream()
-                    .map(Autor::getNombre)
-                    .collect(Collectors.joining(" / "));
-            System.out.println("Autores: " + autores);
-            System.out.println("Descargas: " + l.getDescargas());
-            String idiomas = l.getIdiomas().stream()
-                    .map(i -> traducirLenguaje(i))
-                    .collect(Collectors.joining(" / "));
-            System.out.println("Idiomas: " + idiomas);
-            System.out.println("########################################");*/
             imprimirLibro(l);
         });
     }
@@ -179,6 +169,72 @@ public class Principal {
         System.out.println("Idiomas: " + idiomas);
         System.out.println("########################################");
     }
+    private void imprimirAutores(List<Autor> autores){
+        autores.forEach(a-> {
+            imprimirAutor(a);
+        });
+    }
+
+    private void imprimirAutor(Autor autor) {
+        System.out.println("\n########################################");
+        System.out.println("Nombre: " + autor.getNombre());
+        System.out.println("Año de nacimiento: " + autor.getFechaDeNacimiento());
+        System.out.println("Año de muerte: " + autor.getFechaDeMuerte());
+        String libros = autor.getLibros().stream()
+                .map(Libro::getTitulo)
+                .collect(Collectors.joining(" / "));
+        System.out.println("Libros: " + libros);
+        System.out.println("########################################");
+    }
+
+    private void buscarAutoresPorAnio(){
+        System.out.println("Ingrese año del que desea buscar autores vivos (formato AAAA):");
+        boolean continuar = true;
+        Integer anio = 0;
+        while(continuar){
+            try{
+                 anio = teclado.nextInt();
+
+                if(anio.toString().length() == 4){
+                    continuar = false;
+                }else{
+                    throw new InputMismatchException("Numero debe ser de 4 digitos");
+                }
+
+            } catch(InputMismatchException e){
+                System.out.println("Debe ingresar un año en formato número de 4 digitos");
+                System.out.println(e.getMessage());
+            }
+            teclado.nextLine();
+        }
+        List<Autor> autorAnioList = autorRepositorio.findAllByFechaDeNacimientoLessThanAndFechaDeMuerteGreaterThan(anio, anio);
+        if (autorAnioList.size() == 0) {
+            System.out.println("\nNo se encontraron autores vivos registrados en el año " + anio + "\n");
+        } else {
+            System.out.println("\nSe encontraron los siguientes autores registrados vivos en el año " + anio + ":");
+            imprimirAutores(autorAnioList);
+        }
+
+
+    }
+
+    private void buscarLibrosPorIdioma(){
+        System.out.println("Ingrese idioma del que desea que le mostremos libros: (Ejemplo -> portugues)");
+        //teclado.reset();
+        teclado.nextLine();
+        String idiomaIngresado = teclado.nextLine();
+        String tagIdioma = idiomaTagDesdeTexto(idiomaIngresado);
+        if (tagIdioma == null){
+            System.out.println("No se encontró ningún libro con el idioma ingresado!");
+        }else {
+            System.out.println("\nSe encontraron los siguientes libros para el idioma " + idiomaIngresado);
+            Idioma idioma = idiomaRepositorio.findFirstByIdioma(tagIdioma);
+            List<Libro> librosIdioma = libroRepositorio.findAllByIdiomas(idioma);
+            imprimirLibros(librosIdioma);
+
+        }
+
+    }
 
         private String traducirLenguaje(Idioma Idioma) {
             String nombre = Idioma.getIdioma();
@@ -186,6 +242,31 @@ public class Principal {
                 Locale nombreIdioma = Locale.forLanguageTag(nombre);
                 String traducido = nombreIdioma.getDisplayName();
                 return traducido;
+        }
+
+        private String idiomaTagDesdeTexto(String idioma){
+            List<String> tags = Arrays.stream(Locale.getISOLanguages()).toList();
+            List<String> displayLanguages = tags.stream().map(t-> quitarAcentos(Locale.forLanguageTag(t).getDisplayLanguage())).collect(Collectors.toList());
+            idioma = quitarAcentos(idioma);
+            String tag = "";
+            try{
+                return tags.get(displayLanguages.indexOf(idioma));
+            }catch(ArrayIndexOutOfBoundsException e){
+                return null;
+            }
+
+
+            //System.out.println(t + "-" + Locale.forLanguageTag(t).getDisplayLanguage()));
+
+        }
+
+        private String quitarAcentos(String texto){
+        return texto.replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .toLowerCase();
         }
 
 }

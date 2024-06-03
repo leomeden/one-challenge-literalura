@@ -1,10 +1,8 @@
 package com.one.challenge_literalura.model;
 
 import jakarta.persistence.*;
-import org.hibernate.engine.internal.Cascade;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "libros")
@@ -16,26 +14,18 @@ public class Libro {
     @Column(unique = true)
     private String titulo;
     private Long descargas;
-    @ManyToMany(fetch=FetchType.EAGER,/*targetEntity = Autor.class,*/ cascade = {
+    @ManyToMany(fetch=FetchType.EAGER, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-            //CascadeType.REFRESH
-            //CascadeType.ALL
-
     })
     @JoinTable(
             name="autor_libro",
             joinColumns = @JoinColumn(name= "libros_id"),
             inverseJoinColumns = @JoinColumn(name="autores_id")
     )
-    /*@JoinTable(name = "autor_libro", joinColumns = {
-            @JoinColumn(name = "libros_id", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "autores_id", referencedColumnName = "id")}, uniqueConstraints = @UniqueConstraint(columnNames = {
-            "libros_id", "autores_id" }))*/
     private Set<Autor> autores = new HashSet<Autor>();
-    //private List<Autor> autores = new ArrayList<Autor>();
 
-    @ManyToMany(fetch=FetchType.EAGER, /*targetEntity = Idioma.class,*/ cascade = {
+    @ManyToMany(fetch=FetchType.EAGER, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
@@ -44,10 +34,7 @@ public class Libro {
             joinColumns = @JoinColumn(name= "libros_id"),
             inverseJoinColumns = @JoinColumn(name="idiomas_id")
     )
-    /*@JoinTable(name = "idioma_libro", joinColumns = {
-            @JoinColumn(name = "libros_id", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "idiomas_id", referencedColumnName = "id")}, uniqueConstraints = @UniqueConstraint(columnNames = {
-            "libros_id", "idiomas_id" }))*/
+
     private Set<Idioma> idiomas = new HashSet<Idioma>();
 
     public Libro(){};
@@ -56,12 +43,6 @@ public class Libro {
 
         this.titulo = datosLibros.titulo();
         this.descargas = datosLibros.numeroDeDescargas();
-        /*this.autores = datosLibros.autor().stream()
-                .map(a-> new Autor(a))
-                .collect(Collectors.toSet());
-        this.idiomas = datosLibros.idiomas().stream()
-                .map(i-> new Idioma(i))
-                .collect(Collectors.toSet());*/
     }
 
     public void addIdioma(Idioma idioma){
