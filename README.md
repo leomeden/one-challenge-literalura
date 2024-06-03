@@ -1,82 +1,41 @@
-# one-challenge-literalura
+# Oracle One G6 - Challenge Literalura
+<br>
 
-1- Resumen del proyecto [:arrow_right:](#Resumen-del-proyecto)
-   [Go to Real Cool Heading section](#real-cool-heading)
+![Image Alt Literalura](/images/literalura.png "Literalura")
 
-2. Guía de uso.
+<br><br><br>
 
-3. Usage Guide
-   Walk users through how to use your project. Include code examples, API endpoints, and any configuration they need to know.
-
-4. Configuration
-   If your project has configurable options, explain them here. This is where users can customize your project to their needs.
-
-5. Contributing Guidelines
-   Detail how others can contribute to your project. Include information about issues, pull requests, and coding standards.
-
-6. License
-   Specify the license under which your project is shared. This clarifies how others can use your code.
+### 1. Resumen del proyecto. [:arrow_right:](#Resumen-del-proyecto)
+### 2. Guía de uso. [:arrow_right:]
+### 3. Configuracion. [:arrow_right:]
+### 4. Tratamiento de errores. [:arrow_right:]
+### 5. Licencia. [:arrow_right:]  
 
 
+  
 
+<br><br><br>
 
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-gggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-gggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-gggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-gggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
-
-sdfggggggggggggggggggggggggggggggg
+----
 
 
 
-### Resumen del proyecto
+## Resumen del proyecto
+<br>
 
+El presente documento, corresponde al Challenge LiterAlura correspondiente al curso Back-End "Java y Spring Boot G6 - ONE". 
 
+Esta es una pequeña solución informática que mediante un menú de consola de comandos permite la búsqueda de libros en la API [GUTENDEX.](https://gutendex.com/)
+
+Una vez seleccionado un libro este se guarda en una Base de Datos relacional para ser consultados tanto los datos de los Libros como de los Autores.
+
+Fue diseñada y construida en lenguaje Java utilizando el Framework Spring y en particular Spring-Data para la gestión de la comunicación con la Base de Datos.
+
+[Voler al Menú :arrow_top:](#Oracle-One-G6---Challenge-Literalura)
 # Proyecto Integral N°2
 
 El presente documento, es el **Proyecto Integral N°2** de ***Argentina Program 4.0***. Esta es una pequeña solución informática que sirve registrar los muebles de una mueblería.
-La misma, fue diseñada y construida sobre una arquitectura API RESTful, la cual está desarrollada bajo las restricciones y recomendaciones de REST, además, implementa buenas prácticas de programación.
+
 
 #### Especificaciones
 - Servidor: http://127.0.0.1:3005
