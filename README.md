@@ -3,7 +3,7 @@
 
 ![Literalura](images/literalura.png "literalura")
 
-<br><br><br>
+<br><br>
 
 ### 1. Resumen del proyecto. [:arrow_right:](#Resumen-del-proyecto)
 ### 2. Guía de uso. [:arrow_right:]
@@ -18,7 +18,7 @@
 
 ----
 
-
+<br>
 
 ## Resumen del proyecto
 <br>
@@ -31,7 +31,7 @@ Una vez seleccionado un libro este se guarda en una Base de Datos relacional par
 
 Fue diseñada y construida en lenguaje Java utilizando el Framework Spring y en particular Spring-Data para la gestión de la comunicación con la Base de Datos.
 
-[Voler al Menú :arrow_top:](#Oracle-One-G6---Challenge-Literalura)
+[Voler al Menú :arrow_up:](#Oracle-One-G6---Challenge-Literalura)
 # Proyecto Integral N°2
 
 El presente documento, es el **Proyecto Integral N°2** de ***Argentina Program 4.0***. Esta es una pequeña solución informática que sirve registrar los muebles de una mueblería.
