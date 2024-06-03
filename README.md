@@ -23,13 +23,17 @@
 ## Resumen del proyecto
 <br>
 
-El presente documento, corresponde al Challenge LiterAlura correspondiente al curso Back-End "Java y Spring Boot G6 - ONE". 
+El presente documento, corresponde al Challenge LiterAlura correspondiente 
+al curso Back-End "Java y Spring Boot G6 - ONE". 
 
-Esta es una pequeña solución informática que mediante un menú de consola de comandos permite la búsqueda de libros en la API [GUTENDEX.](https://gutendex.com/)
+Esta es una pequeña solución informática que mediante un menú de consola de 
+comandos permite la búsqueda de libros en la API [GUTENDEX.](https://gutendex.com/)
 
-Una vez seleccionado un libro este se guarda en una Base de Datos relacional para ser consultados tanto los datos de los Libros como de los Autores.
+Una vez seleccionado un libro este se guarda en una Base de Datos relacional 
+para ser consultados tanto los datos de los Libros como de los Autores.
 
-Fue diseñada y construida en lenguaje Java utilizando el Framework Spring y en particular Spring-Data para la gestión de la comunicación con la Base de Datos.
+Fue diseñada y construida en lenguaje Java utilizando el Framework Spring y 
+en particular Spring-Data para la gestión de la comunicación con la Base de Datos.
 
 Volver al Menú [:arrow_up:](#Oracle-One-G6---Challenge-Literalura)
 
@@ -48,11 +52,30 @@ Al iniciar la aplicación se despliega un menú con las opciones disponibles.
 ![Menú Principal](images/menu_principal.png "Menú Principal")
 
 #### Opción 1 - Buscar Libro por Titulo o Autor
-Al ingresar un título o autor (o parte de éste) la aplicación buscará en la API GUTENDEX los ersultados a listar. Luego imprimirá los mismos en pantalla numerados e indicando titulo y el primer autor del mismo.
+Al ingresar un título o autor (o parte de éste) la aplicación buscará en la 
+API [GUTENDEX](https://gutendex.com/) los resultados a listar. Luego imprimirá 
+los mismos en pantalla numerados e indicando los titulos y primer autor de los mismos.
 
 Luego de esto solicitará ingresar un número correspondiente a uno de los libros listados.
 
 ![Búsqueda](images/busqueda1.png "Busqueda con cantidad de resultados menor a 25")
+
+Si la consulta a la API arrojara mas de 25 resultados exibirá en pantalla un mensaje 
+indicando esto y solicitará si se desea continuar o abortar la busqueda.
+
+![Búsqueda cantidad mayor a 25](images/cant_mayor_25.png "Busqueda con cantidad de resultados mayor a 25")
+
+En caso de que se indique continuar irá mostrando un progreso de porcentaje a medida que 
+recibe los resultados de la API ya que puede demorar un tiempo considerable si la cantidad de 
+libros a listar es demasiado extensa.
+
+![Progreso de búsqueda](images/progreso_busqueda.png "Progreso de búsqueda")
+
+Luego de ingresar el número correspondiente al libro que se desea guardar se imprimirá
+en pantalla la confirmación de que fue guardado junto con la descripción del mismo.
+
+![Guardado de libro](images/guardado_libro.png "Guardado de libro")
+
 
 Volver al Menú [:arrow_up:](#Oracle-One-G6---Challenge-Literalura)
 
