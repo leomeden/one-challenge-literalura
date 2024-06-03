@@ -1,6 +1,6 @@
 # one-challenge-literalura
 
-1- Resumen del proyecto [:arrow_right:](###Resumen-del-proyecto)
+1- Resumen del proyecto [:arrow_right:](#Resumen-del-proyecto)
    [Go to Real Cool Heading section](#real-cool-heading)
 
 2. Guía de uso.
