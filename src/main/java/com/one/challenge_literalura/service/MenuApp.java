@@ -10,12 +10,13 @@ public class MenuApp {
             
             ######################################################################
                     Bienvenido a nuestra aplicación de busqueda de libros
-            ######################################################################
-            
+            ###################################################################### 
             """;
 
     private String menuPrincipal= """
-            
+        
+        ################ MENÚ ################
+        
         Elija su opción:
             
             1- Buscar Libro por Titulo o Autor
@@ -24,6 +25,8 @@ public class MenuApp {
             4- Listar Autores vivos según año
             5- Listar Libros por idioma
             0- Salir de la aplicación
+            
+        ######################################
         """;
 
     public void mostrarSaludoInicial(){

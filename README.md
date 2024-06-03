@@ -1,15 +1,15 @@
 # Oracle One G6 - Challenge Literalura
 <br>
 
-![Literalura](images/literalura.png "literalura")
+![Literalura](images/literalura.png "Literalura")
 
 <br><br>
 
 ### 1. Resumen del proyecto. [:arrow_right:](#Resumen-del-proyecto)
-### 2. Guía de uso. [:arrow_right:]
-### 3. Configuracion. [:arrow_right:]
-### 4. Tratamiento de errores. [:arrow_right:]
-### 5. Licencia. [:arrow_right:]  
+### 2. Guía de uso. [:arrow_right:](#Guía-de-uso)
+### 3. Configuracion. [:arrow_right:](#Configuración)
+### 4. Tratamiento de errores. [:arrow_right:](#Tratamiento-de-errores)
+### 5. Licencia. [:arrow_right:](#Licencia)
 
 
   
@@ -31,7 +31,65 @@ Una vez seleccionado un libro este se guarda en una Base de Datos relacional par
 
 Fue diseñada y construida en lenguaje Java utilizando el Framework Spring y en particular Spring-Data para la gestión de la comunicación con la Base de Datos.
 
-[Voler al Menú :arrow_up:](#Oracle-One-G6---Challenge-Literalura)
+Volver al Menú [:arrow_up:](#Oracle-One-G6---Challenge-Literalura)
+
+<br><br>
+
+----
+
+<br>
+
+## Guía de uso
+
+### Menú Principal
+
+Al iniciar la aplicación se despliega un menú con las opciones disponibles.
+
+![Menú Principal](images/menu_principal.png "Menú Principal")
+
+#### Opción 1 - Buscar Libro por Titulo o Autor
+Al ingresar un título o autor (o parte de éste) la aplicación buscará en la API GUTENDEX los ersultados a listar. Luego imprimirá los mismos en pantalla numerados e indicando titulo y el primer autor del mismo.
+
+Luego de esto solicitará ingresar un número correspondiente a uno de los libros listados.
+
+![Búsqueda](images/busqueda1.png "Busqueda con cantidad de resultados menor a 25")
+
+Volver al Menú [:arrow_up:](#Oracle-One-G6---Challenge-Literalura)
+
+<br><br>
+
+----
+
+<br>
+
+## Configuración
+
+Volver al Menú [:arrow_up:](#Oracle-One-G6---Challenge-Literalura)
+
+<br><br>
+
+----
+
+<br>
+
+## Tratamiento de errores
+
+Volver al Menú [:arrow_up:](#Oracle-One-G6---Challenge-Literalura)
+
+<br><br>
+
+----
+
+<br>
+
+## Licencia
+
+Volver al Menú [:arrow_up:](#Oracle-One-G6---Challenge-Literalura)
+
+<br><br>
+
+
+
 # Proyecto Integral N°2
 
 El presente documento, es el **Proyecto Integral N°2** de ***Argentina Program 4.0***. Esta es una pequeña solución informática que sirve registrar los muebles de una mueblería.

@@ -95,7 +95,7 @@ public class BusquedaAutorTitulo {
         try{
             if(datos.cantidad() > 0){
                 if(datosBusquedaTotal.size() > 0){
-                    System.out.println("\nbusqueda total ------");
+                    System.out.println("\n####### Resultados de la busqueda #######");
                     System.out.println("Cantidad de libros: " + datosBusquedaTotal.size());
                     AtomicInteger num = new AtomicInteger(1);
                     datosBusquedaTotal.forEach(l -> {

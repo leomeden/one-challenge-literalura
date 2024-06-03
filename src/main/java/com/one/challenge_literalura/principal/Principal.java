@@ -1,5 +1,6 @@
 package com.one.challenge_literalura.principal;
 
+import com.one.challenge_literalura.excepciones.FormatoNoValido;
 import com.one.challenge_literalura.excepciones.OpcionIncorrectaMenu;
 
 import com.one.challenge_literalura.model.Autor;
@@ -39,6 +40,7 @@ public class Principal {
 
         while(!salir){
             menuApp.mostrarMenuPrincipal();
+            System.out.print("Opción:");
             try{
                 opcion = teclado.nextInt();
                 if(opcion > 5 || opcion < 0) {
@@ -65,7 +67,7 @@ public class Principal {
     private void seleccionDeOpcion(int opcion){
         switch (opcion) {
             case 1:
-                System.out.println("Ingrese el nombre de Autor o Titulo a buscar: ");
+                System.out.print("Ingrese el nombre de Autor o Titulo a buscar: ");
                 opcionBuscar();
                 break;
 
@@ -91,7 +93,8 @@ public class Principal {
                 break;
 
             case 0:
-                System.out.println("Chau chau: ");
+                System.out.println("\n Hasta la próxima!!!!!\n\n");
+
                 break;
 
             default:
@@ -198,11 +201,14 @@ public class Principal {
                 if(anio.toString().length() == 4){
                     continuar = false;
                 }else{
-                    throw new InputMismatchException("Numero debe ser de 4 digitos");
+                    throw new FormatoNoValido("Numero debe ser de 4 digitos");
                 }
 
             } catch(InputMismatchException e){
-                System.out.println("Debe ingresar un año en formato número de 4 digitos");
+
+                    System.out.println("Debe ingresar un año en formato número de 4 digitos");
+
+            } catch(FormatoNoValido e){
                 System.out.println(e.getMessage());
             }
             teclado.nextLine();
